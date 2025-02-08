@@ -1,147 +1,134 @@
 <div align="center">
-<img src="https://files.catbox.moe/x7b0e2.png" height="128" width="128" style="border-radius:25%">
-   <h1> Semaphorin 
-      <br/> 64-Bit Downgrade, Dualboot & Jailbreak Utility
-   </h1>
+  <img src="https://files.catbox.moe/x7b0e2.png" height="128" width="128" style="border-radius:25%">
+  <h1>Semaphorin</h1>
+  <p><strong>64-Bit iOS Downgrade, Dualboot, and Jailbreak Utility</strong></p>
 </div>
 
-<h4 align="center"> Uses seprmvr64 by mineek<h4>
-<h6 align="center"> Supports* iOS 7.0.6-12.1 as well as A7-A11 devices </h6>
-<h6 align="center"> This is a fork of the tool with some updates </h6>
+<p align="center">
+  <strong>Supported iOS Versions:</strong> iOS 7.0.6 - 12.1 <br>
+  <strong>Supported Devices:</strong> A7 - A11
+</p>
 
-## IF YOUR DEVICE SUPPORTS [LEGACY-IOS-KIT](https://github.com/LukeZGD/Legacy-iOS-Kit), YOU SHOULD REALLY USE THAT OVER THIS.
 
-## Support
+<p><strong>Note:</strong> This is an actively maintained fork of the original Semaphorin project.</p>
 
-No support
+## Compatibility Matrix
 
-Do not expect updates to this anymore, especially with all the events that have happened surrounding this tool
+This table outlines the functionality expected on each supported iOS version after downgrading with Semaphorin.
 
-It may be better for someone to rewrite the entire thing, and/or just create or use another tool
+| iOS        | App Store | Cydia   | Tweaks | Respring | Cellular | Sideloadly | iTunes |
+|------------|-----------|---------|--------|----------|----------|------------|--------|
+| 7.0.6      | ✅        | ✅      | ✅     | ✅       | ✅       | ✅         | ✅     |
+| 7.1.2      | ✅        | ✅      | ✅     | ✅       | ✅       | ✅         | ✅     |
+| 8.4.1      | ✅        | ✅      | ✅     | ✅       | ❌       | ✅         | ✅     |
+| 9.3        | ✅        | ✅      | ✅     | ✅       | ✅       | ❌         | ❌     |
+| 10.3.3     | ✅        | ✅      | ✅     | ✅       | ✅       | ❌         | ❌     |
+| 11.3       | ✅        | ✅      | ✅     | ✅       | ✅       | ❌         | ❌     |
+| 12.1       | ✅        | ✅      | ✅     | ✅       | ✅       | ❌         | ❌     |
 
-Note: This fork has mostly only been tested on Linux. For macOS, try doing the [usbd trick](https://www.reddit.com/r/iphone/comments/a8jui7/tip_if_your_having_issues_charging_your_device/) (running `sudo killall -STOP -c usbd`) if your device is not getting detected properly. If it still does not work, maybe try the other [archived Semaphorin](https://github.com/y08wilmarchive/Semaphorin)
+**Legend:**
 
-## Chart of compatibility
+*   ✅ = Functionality is fully operational.
+*   ❌ = Functionality is not working or not fully supported.
 
-| iOS         | App Store | Cydia       | Tweaks    | Respring| Cellular | Sideloadly | iTunes     |
-|-------------|-----------|-------------|-----------|---------|----------|------------|------------|
-| 7.0.6       | &#9745;   | &#9745;     | &#9745;   | &#9745; | &#9745;  | &#9745;    | &#9745;    | 
-| 7.1.2       | &#9745;   | &#9745;     | &#9745;   | &#9745; | &#9745;  | &#9745;    | &#9745;    |
-| 8.4.1       | &#9745;   | &#9745;     | &#9745;   | &#9745; | &#9744;  | &#9745;    | &#9745;    |
-| 9.3         | &#9745;   | &#9745;     | &#9745;   | &#9745; | &#9745;  | &#9744;    | &#9744;    |
-| 10.3.3      | &#9745;   | &#9745;     | &#9745;   | &#9745; | &#9745;  | &#9744;    | &#9744;    |
-| 11.3        | &#9745;   | &#9745;     | &#9745;   | &#9745; | &#9745;  | &#9744;    | &#9744;    |
-| 12.1        | &#9745;   | &#9745;     | &#9745;   | &#9745; | &#9745;  | &#9744;    | &#9744;    |
+## Important Warning
 
-Other iOS versions not listed in the chart may also work but they might have unexpected broken features/jailbreak
+**Data Loss:** This script will **erase all data** on your device, including the existing operating system (unless downgrading to iOS 10.3.3 or later). **Back up your device completely before proceeding.** Data lost during this process cannot be recovered.
 
-## How do I use this?
+**Risk:** Use this script at your own risk. I am not responsible for any damage or loss of data resulting from its use.
 
-This script deletes everything on your phone, including the main OS if you are not downgrading to iOS 10.3 or later. Make sure to backup all of your data before using this script as **anything on the device prior to running this script will be unrecoverable afterwards**. Use this script at your own risk. We are not responsible for any damages caused by you using this script.
+## Getting Started
 
-This script will automatically set up a dualboot for iOS 10.3 and later.
+### Prerequisites
 
-To use this app, you need to downgrade to a supported version, and have a supported device.
+*   **macOS:** Catalina (10.15) or later.
+*   **Python:** 3.6 or later.
+*   **Hardware:** An Intel-based Mac (AMD CPUs/Hackintoshes are not supported).
+*   **Internet:**  A stable internet connection.
+*   **Storage:** At least 20 GB of free disk space.
+*   **USB:** A USB Type-A port and a Lightning cable (USB Type-C ports and dongles can be unreliable)
+*   **Working iDevice:** The device must be functional enough to allow the script to back up critical files, including `apticket.der`, `sep-firmware.img4`, `Baseband`, and `keybags`.
 
-`xcode-select install` to install `git` on macos
+### Installation
 
-`git clone https://github.com/LukeZGD/Semaphorin && cd Semaphorin`
+1.  **Install Git (if needed):** Open Terminal and run `xcode-select install`.
+2.  **Clone the Repository:** In Terminal, run:
+    ```bash
+    git clone https://github.com/Kaiden-AC/Semaphorin.git && cd Semaphorin
+    ```
 
-Connect device in DFU mode
+### Usage
 
-`sudo ./semaphorin.sh <the version you are downgrading to> --restore`
+1.  **Enter DFU Mode:** Connect your device to your Mac and put it into DFU (Device Firmware Update) mode. (See online tutorials for specific device instructions if needed).
 
-For example you may write `sudo ./semaphorin.sh 9.3 --restore`
+2. **Initial Restore:** Run the downgrade script using the following command in Terminal:
+    ```bash
+    sudo ./semaphorin.sh <target_ios_version> --restore
+    ```
+    Replace `<target_ios_version>` with the iOS version you wish to downgrade to (e.g., `sudo ./semaphorin.sh 9.3 --restore`).
 
-The script has to backup important files from your current iOS version before you can downgrade.
+3.  **Current iOS Version Input:** The script will prompt you for your **current** iOS version. Type in the correct version and press Enter to continue.
 
-When the script asks `[*] Please enter the iOS version that is currently installed on your device.`, type your current iOS version and then hit the Enter key to continue.
+4.  **Follow On-Screen Instructions:** The script will guide you through the downgrade process, including rebooting multiple times. This process may take a considerable amount of time.
 
-It should then begin the process of downgrading your device. Please follow the on screen instructions. This might take a while. Your device will reboot multiple times.
+5. **Post-downgrade Jailbreak:**
+    *   **iOS 9 or later:** Look for the jailbreak application on your home screen.
+    *   **iOS 8 or below:** Device will already be jailbroken.
 
-If you downgraded to iOS 9 or later, please use the jailbreak app on your home screen to begin jailbreaking your device.
+### Subsequent Boots
 
-For iOS 7 and 8, see below troubleshooting steps for jailbreaking.
+After the initial downgrade, you can boot into the downgraded iOS version using:
 
-## Subsequent runs after downgrade is finished
-
-Connect device in DFU mode
-
-`sudo ./semaphorin.sh <the version you downgraded to previously> --boot`
-
-For example, if you downgraded to iOS 9.3, you would run `sudo ./semaphorin.sh 9.3 --boot`.
-
-It should just boot to your requested iOS version normally.
-
-## Requirements
-
-macOS Catalina or later, or Linux. The script only officially supports these versions.
-
-Hackintoshes with AMD CPUs will **NOT** work with this.
-
-Stable internet connection. Please don't try using this with dial up...
-
-At least 20GB of free space on your computer
-
-USB Type-A port and Lightning cable. USB Type-C ports will **NOT** work with this script. If you're using a Mac that only has a USB-C port (such as 12" MacBooks, and late Intel MacBook Airs) a dongle/dock with a USB-A port should work just fine with a standard USB-A to Lightning cable.
-
-Working iDevice: The script has to backup `apticket.der`, `sep-firmware.img4`, `Baseband`, and `keybags` from your device before you can downgrade to an older iOS version.
-
-## Setup.app bypass
-
-We will not be providing any support for any method of deleting `/Applications/Setup.app` with our script.
-
-This is only to comply with [r/jailbreak](https://www.reddit.com/r/jailbreak/) and [r/LegacyJailbreak](https://www.reddit.com/r/LegacyJailbreak/) rules and guidelines.
-
-The script will downgrade your iOS version and jailbreak the downgraded OS very easily, but will not allow for bypassing **any** sort of Activation Lock.
-
-We back up the `activation_records` from your main OS prior to downgrading your device, so please make sure your main OS is activated before using this tool.
+```bash
+sudo ./semaphorin.sh <downgraded_ios_version> --boot
+```
+    
+  Replace `<downgraded_ios_version>` with the version you have already downgraded to (e.g., `sudo ./semaphorin.sh 9.3 --boot`).
 
 ## Troubleshooting
 
-   ### Deep sleep, device won't turn on after locking it, have to reboot.
-   The issue that causes deep sleep is unfortunately **unfixable**. There is, however, a workaround to this:
+### Deep Sleep Issues
+Your device may experience "deep sleep" issues after downgrading, causing it to not wake up when locking it. 
+* **Workaround:** Install the tweak "Fiona" from Julioverne's repo. This tweak may have a small effect on your battery life.
+ * Repo URL: `julioverne.github.io`
 
-   Install the tweak "Insomnia" from BigBoss repo or "Fiona" from the repo https://julioverne.github.io
-      
-   *Note: This does slightly affect battery life due to the way it works. You probably aren't using this script for battery life though, are you.
+### WiFi Issues
 
-   ### Unable to connect to WiFi networks, incorrect password.
-   This is caused by an issue that's *impossible* to fix. You need to connect to an open WiFi network
+Issues connecting to Wi-Fi networks (e.g., incorrect password errors) can occur after downgrading. Use an **open Wi-Fi** network to bypass this problem. You can create a temporary open network from your macOS machine using Internet Sharing or on Linux using `linux-wifi-hotspot`. Take care to secure your network if you use this method.
 
-   You can create one using the Internet Sharing feature on macOS or [linux-wifi-hotspot](https://github.com/lakinduakash/linux-wifi-hotspot) on, you guessed it, Linux if you prefer using another computer for this. 
+### Safari not working (iOS 10)
+Use the **FileManager** app on the home screen as a temporary replacement. It has a built-in download manager.
 
-   Be careful when doing this since *anyone* can connect to the open network you created. We are not responsible for **any** damages caused by doing this.
-
-   ### Jailbreak/tweaks and other apps do not work (iOS 7 and 8)
-   Open Terminal, type `su` -> `alpine` (input is invisible but still being typed) -> `reload`
-
-   This is to be done every (re)boot
-
-   It may fail the first time due to a malloc error, just close out of Terminal and re open the app. Do the same process over again and it should respring the device. All the apps on your device should now be working properly if you follow these steps.
-
-   ### Safari does not work (iOS 10)
-   Use the FileManager app on the home screen instead. It is a drop in replacement for Safari, and has a built in download manager also.
+### Safari and other apps broken (iOS 7)
+1. Reboot your device.
+2. Open the Terminal app.
+3. Enter `su -` and press Enter.
+4. Enter `alpine` as the password and hit Enter.
+5. Enter `reload` and hit Enter. This will patch sandbox and load all your tweaks. You may have to do this twice to respring your device.
 
 ## Credits
 
-- [PsychoTea](https://github.com/PsychoTea/) for [MeridianJB](https://github.com/PsychoTea/MeridianJB/) which we use for iOS 10.3.3 downgrades
-- [coolstar](https://github.com/coolstar) for [Electra](https://www.coolstar.org/electra/) and [Chimera](https://chimera.coolstar.org/) jailbreaks which we use on iOS 11 and 12 downgrades
-- [edwin170](https://github.com/edwin170) for a ton of help with fixing cell service, icloud, audio, 3d touch, gyroscope, microphone and other issues
-- [johndoe123](https://twitter.com/iarchiveml) for the a7 ios 7 [downgrade guide](https://ios7.iarchive.app/downgrade/) which made this entire project possible
-- [LukeZGD](https://github.com/LukeZGD/) for the updated [cydia.tar](https://github.com/LukeZGD/Legacy-iOS-Kit/raw/main/resources/jailbreak/freeze.tar) for jailbreaking older ios versions
-- [TheRealClarity](https://github.com/TheRealClarity) for wtfis.app which we [repurposed](https://github.com/y08wilm/wtfis/blob/ios7/wtfis/ViewController.m#L27) to run [evasi0n7](https://ios.cfw.guide/installing-evasi0n7/) for sandbox patch on ios 7 to allow cydia substrate to not break apps
-- [Nathan](https://github.com/verygenericname) for the ssh ramdisk and [iBoot64Patcher fork](https://github.com/verygenericname/iBoot64Patcher)
-- [Mineek](https://github.com/mineek) for [seprmvr64](https://github.com/mineek/seprmvr64) and other patches. I want to give a very special thanks to [Mineek](https://github.com/mineek), if it werent for them this entire project would have not been possible. you are amazing and i appreciate all that you do, thank you so much
-- [nyuszika7h](https://github.com/nyuszika7h) for the script to help get into DFU
-- [tihmstar](https://github.com/tihmstar) for [pzb](https://github.com/tihmstar/partialZipBrowser)/original [iBoot64Patcher](https://github.com/tihmstar/iBoot64Patcher)/original [liboffsetfinder64](https://github.com/tihmstar/liboffsetfinder64)/[img4tool](https://github.com/tihmstar/img4tool)
-- [Tom](https://github.com/guacaplushy) for a couple patches and bugfixes
-- [xerub](https://github.com/xerub) for [img4lib](https://github.com/xerub/img4lib) and [restored_external](https://github.com/xerub/sshrd) in the ramdisk
-- [Cryptic](https://github.com/Cryptiiiic) for [iBoot64Patcher](https://github.com/Cryptiiiic/iBoot64Patcher) fork, and [liboffsetfinder64](https://github.com/Cryptiiiic/liboffsetfinder64) fork
-- [libimobiledevice](https://github.com/libimobiledevice) for several tools used in this project (irecovery, ideviceenterrecovery etc), and [nikias](https://github.com/nikias) for keeping it up to date
-- [Nick Chan](https://github.com/asdfugil) general help with patches and iBoot payload stuff
-- [Serena](https://github.com/SerenaKit) for helping with boot ramdisk.
-- [planetbeing](https://github.com/planetbeing/) for dmg tool from [xpwn](https://github.com/planetbeing/xpwn)
-- [exploit3dguy](https://github.com/exploit3dguy/) for [iPatcher](https://github.com/exploit3dguy/iPatcher) which is used for patching iBoot on ios 7
-- [dora2-ios](https://github.com/dora2-iOS) for [iPwnder](https://iarchive.app/Download/ipwnder_macosx)
-- [NyanSatan](https://github.com/NyanSatan) for [fixkeybag](https://github.com/NyanSatan/fixkeybag)
+This project would not be possible without the incredible work of these individuals:
+
+*   y08wilm: Original Semaphorin code
+*   [PsychoTea](https://github.com/PsychoTea/):  MeridianJB
+*   [coolstar](https://github.com/coolstar): Electra and Chimera jailbreaks.
+*   [edwin170](https://github.com/edwin170): Contributions to resolving cellular, iCloud, audio and other issues.
+*   johndoe123: A7 iOS 7 downgrade guide.
+*   [LukeZGD](https://github.com/LukeZGD/): Updated cydia.tar and icon fixes for iPads
+*   [TheRealClarity](https://github.com/TheRealClarity): wtfis.app, for sandbox patch on iOS 7.
+*   [Nathan](https://github.com/verygenericname): SSH ramdisk and iBoot64Patcher fork.
+*   [Mineek](https://github.com/mineek): seprmvr64 and other patches.
+*   [Luna](https://github.com/lunaynx): DFU script.
+*   [tihmstar](https://github.com/tihmstar): pzb, iBoot64Patcher, liboffsetfinder64, img4tool.
+*   [sarah](https://github.com/plooshi): Patches and bug fixes
+*   [xerub](https://github.com/xerub): img4lib and restored_external.
+*   [Cryptic](https://github.com/Cryptiiiic): iBoot64Patcher and liboffsetfinder64 forks.
+*   [libimobiledevice](https://github.com/libimobiledevice): Various tools used in the project.
+*   [nikias](https://github.com/nikias): Keeping libimobiledevice up to date.
+*   [Nick Chan](https://github.com/asdfugil): General help with patches and iBoot.
+*   [Serena](https://mastodon.social/@CoreSerena): Boot ramdisk assistance.
+*   [planetbeing](https://github.com/planetbeing): dmg tool from xpwn.
+*   [exploit3dguy](https://github.com/exploit3dguy): iPatcher for iBoot patching on iOS 7.
+*   [dora2-ios](https://github.com/dora2-iOS): iPwnder
+*   [NyanSatan](https://github.com/NyanSatan): fixkeybag
