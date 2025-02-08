@@ -109,7 +109,7 @@ elif [[ $os =~ Linux ]]; then
 	trap "clean_usbmuxd" EXIT
 	trap "exit 1" INT TERM
 else
-	echo "[!] What operating system are you even using..."
+	echo "[!] Unknown OS, exiting..."
 	exit 1
 fi
 
@@ -1912,7 +1912,7 @@ if [[ "$clean" == 1 ]]; then
 	exit 0
 fi
 if [[ -z "$r" && $boot != 1 && $boot_clean != 1 ]]; then
-	read -p "what ios version is or was installed on this device prior to downgrade? " r
+	read -p "[*] What iOS version is or was installed on this device prior to downgrade? " r
 fi
 if [[ "$boot_clean" == 1 ]]; then
 	_download_clean_boot_files $deviceid $replace $version
