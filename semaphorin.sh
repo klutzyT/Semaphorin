@@ -46,10 +46,10 @@ if [ "$cmd_not_found" = "1" ]; then
 	exit 1
 fi
 
-# Check for pyimg4
-if ! python3 -c 'import importlib.util; exit(not importlib.util.find_spec("pyimg4"))'; then
-	env PIP_BREAK_SYSTEM_PACKAGES=1 python3 -m pip install --user pyimg4
-fi
+# Install pyimg4
+python -m venv venv
+source venv/bin/activate
+pip install pyimg4
 
 # This would probably go better somewhere else, but I'm not sure where to put it since most of the script is just in functions.
 
