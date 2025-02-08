@@ -1652,11 +1652,16 @@ _download_root_fs() {
 					fi
 					fn="$fno"
 					ivkey=$("$bin"/pass2key $scid "$dir"/$1/$cpid/$3/RestoreRamDisk.dmg $fn | tail -n 1 | cut -d ' ' -f 3)
-					"$bin"/dmg extract $fn "$dir"/$1/$cpid/$3/OS.dmg -k $ivkey
+					if [[ "$3" == "10.0"* || "$3" == "10.1"* || "$3" == "10.2"* ]]; then
+						:
+					else
+						"$bin"/dmg extract $fn "$dir"/$1/$cpid/$3/OS.dmg -k $ivkey
+					fi
 				fi
 			fi
-			rm $fn
-			if [ ! -e "$dir"/$1/$cpid/$3/rw.dmg ]; then
+			if [[ "$3" == "10.0"* || "$3" == "10.1"* || "$3" == "10.2"* && ! -e "$dir"/$1/$cpid/$3/rw.dmg ]]; then
+				mv $fn "$dir"/$1/$cpid/$3/rw.dmg
+			elif [ ! -e "$dir"/$1/$cpid/$3/rw.dmg ]; then
 				"$bin"/dmg build "$dir"/$1/$cpid/$3/OS.dmg "$dir"/$1/$cpid/$3/rw.dmg
 				rm "$dir"/$1/$cpid/$3/OS.dmg
 			fi
@@ -1668,6 +1673,9 @@ _download_root_fs() {
 				rm "$dir"/$1/$cpid/$3/rw.dmg
 			fi
 			rm -rf /tmp/ios
+			if [ -f $fn ]; then
+				rm $fn
+			fi
 			if [[ "$deviceid" == "iPhone6"* || "$deviceid" == "iPad4"* ]]; then
 				"$bin"/irecovery -f /dev/null
 			fi
