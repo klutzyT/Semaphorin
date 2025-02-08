@@ -540,20 +540,20 @@ _download_ramdisk_boot_files() {
 				hdiutil attach -mountpoint /tmp/ramdisk "$dir"/$1/$cpid/ramdisk/$3/RestoreRamDisk.dmg
 				sudo diskutil enableOwnership /tmp/ramdisk
 				gzip -d "$sshtars"/ssh.tar.gz
-				sudo "$bin"/gnutar -xvf "$sshtars"/ssh.tar -C /tmp/ramdisk
+				sudo tar -xvf "$sshtars"/ssh.tar -C /tmp/ramdisk
 				if [[ "$3" == "7."* || "$3" == "8."* || "$3" == "9."* || "$3" == "10."* || "$3" == "11."* ]]; then
 					# fix scp
-					sudo "$bin"/gnutar -xvf "$bin"/libcharset.1.dylib_libiconv.2.dylib.tar -C /tmp/ramdisk/usr/lib
+					sudo tar -xvf "$bin"/libcharset.1.dylib_libiconv.2.dylib.tar -C /tmp/ramdisk/usr/lib
 				fi
 				if [[ "$3" == "7."* || "$3" == "8."* || "$3" == "9."* || "$3" == "10."* || "$3" == "11."* || "$3" == "12."* || "$3" == "13.0"* || "$3" == "13.1"* || "$3" == "13.2"* || "$3" == "13.3"* ]]; then
 					# fix scp
-					sudo "$bin"/gnutar -xvf "$bin"/libresolv.9.dylib.tar -C /tmp/ramdisk/usr/lib
+					sudo tar -xvf "$bin"/libresolv.9.dylib.tar -C /tmp/ramdisk/usr/lib
 				fi
 				# gptfdisk automation shenanigans
-				sudo "$bin"/gnutar -xvf "$dir"/jb/gpt.txt_hfs_dualboot.tar -C /tmp/ramdisk
-				sudo "$bin"/gnutar -xvf "$dir"/jb/gpt.txt.tar -C /tmp/ramdisk
+				sudo tar -xvf "$dir"/jb/gpt.txt_hfs_dualboot.tar -C /tmp/ramdisk
+				sudo tar -xvf "$dir"/jb/gpt.txt.tar -C /tmp/ramdisk
 				# fixup update partition script, i.e. changes all Update partitions to UpdateX partitions
-				sudo "$bin"/gnutar -xvf "$dir"/jb/fixup_update_partition.tar -C /tmp/ramdisk
+				sudo tar -xvf "$dir"/jb/fixup_update_partition.tar -C /tmp/ramdisk
 				hdiutil detach /tmp/ramdisk
 				"$bin"/img4tool -c "$dir"/$1/$cpid/ramdisk/$3/ramdisk.im4p -t rdsk "$dir"/$1/$cpid/ramdisk/$3/RestoreRamDisk.dmg
 				"$bin"/img4tool -c "$dir"/$1/$cpid/ramdisk/$3/ramdisk.img4 -p "$dir"/$1/$cpid/ramdisk/$3/ramdisk.im4p -m IM4M
@@ -583,20 +583,20 @@ _download_ramdisk_boot_files() {
 				fi
 				sudo diskutil enableOwnership /tmp/ramdisk
 				gzip -d "$sshtars"/ssh.tar.gz
-				sudo "$bin"/gnutar -xvf "$sshtars"/ssh.tar -C /tmp/ramdisk
+				sudo tar -xvf "$sshtars"/ssh.tar -C /tmp/ramdisk
 				if [[ "$3" == "7."* || "$3" == "8."* || "$3" == "9."* || "$3" == "10."* || "$3" == "11."* ]]; then
 					# fix scp
-					sudo "$bin"/gnutar -xvf "$bin"/libcharset.1.dylib_libiconv.2.dylib.tar -C /tmp/ramdisk/usr/lib
+					sudo tar -xvf "$bin"/libcharset.1.dylib_libiconv.2.dylib.tar -C /tmp/ramdisk/usr/lib
 				fi
 				if [[ "$3" == "7."* || "$3" == "8."* || "$3" == "9."* || "$3" == "10."* || "$3" == "11."* || "$3" == "12."* || "$3" == "13.0"* || "$3" == "13.1"* || "$3" == "13.2"* || "$3" == "13.3"* ]]; then
 					# fix scp
-					sudo "$bin"/gnutar -xvf "$bin"/libresolv.9.dylib.tar -C /tmp/ramdisk/usr/lib
+					sudo tar -xvf "$bin"/libresolv.9.dylib.tar -C /tmp/ramdisk/usr/lib
 				fi
 				# gptfdisk automation shenanigans
-				sudo "$bin"/gnutar -xvf "$dir"/jb/gpt.txt_hfs_dualboot.tar -C /tmp/ramdisk
-				sudo "$bin"/gnutar -xvf "$dir"/jb/gpt.txt.tar -C /tmp/ramdisk
+				sudo tar -xvf "$dir"/jb/gpt.txt_hfs_dualboot.tar -C /tmp/ramdisk
+				sudo tar -xvf "$dir"/jb/gpt.txt.tar -C /tmp/ramdisk
 				# fixup update partition script, i.e. changes all Update partitions to UpdateX partitions
-				sudo "$bin"/gnutar -xvf "$dir"/jb/fixup_update_partition.tar -C /tmp/ramdisk
+				sudo tar -xvf "$dir"/jb/fixup_update_partition.tar -C /tmp/ramdisk
 				hdiutil detach -force /tmp/ramdisk
 				if [[ "$3" == *"16"* || "$3" == *"17"* ]]; then
 					hdiutil resize -sectors min "$dir"/$1/$cpid/ramdisk/$3/RestoreRamDisk1.dmg
@@ -1663,7 +1663,7 @@ _download_root_fs() {
 			if [ "$os" = "Darwin" ]; then
 				hdiutil attach -mountpoint /tmp/ios "$dir"/$1/$cpid/$3/rw.dmg
 				sudo diskutil enableOwnership /tmp/ios
-				sudo "$bin"/gnutar -cvf "$dir"/$1/$cpid/$3/OS.tar -C /tmp/ios .
+				sudo tar -cvf "$dir"/$1/$cpid/$3/OS.tar -C /tmp/ios .
 				hdiutil detach /tmp/ios
 				rm "$dir"/$1/$cpid/$3/rw.dmg
 			fi
@@ -1803,7 +1803,7 @@ if [ ! -e java/bin/java ]; then
 		sudo rm -rf openlogic-openjdk-jre-8u262-b10-mac-x64/
 	else
 		curl -k -SLO https://builds.openlogic.com/downloadJDK/openlogic-openjdk-jre/8u262-b10/openlogic-openjdk-jre-8u262-b10-linux-x64.tar.gz
-		"$bin"/gnutar -xzf openlogic-openjdk-jre-8u262-b10-linux-x64.tar.gz
+		tar -xzf openlogic-openjdk-jre-8u262-b10-linux-x64.tar.gz
 		cp -rf openlogic-openjdk-jre-8u262-b10-linux-64/* .
 		rm -rf openlogic-openjdk-jre-8u262-b10-linux*
 	fi
