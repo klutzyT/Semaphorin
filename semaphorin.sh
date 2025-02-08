@@ -199,7 +199,7 @@ parse_opt() {
 		;;
 	--ssh)
 		_kill_if_running iproxy
-		"$bin"/iproxy 2222 22 &
+		"$bin"/iproxy 2222 22 &>/dev/null &
 		sleep 1
 		ssh -o StrictHostKeyChecking=no -p2222 root@localhost
 		exit 0
@@ -236,7 +236,7 @@ parse_arg() {
 		;;
 	ssh)
 		_kill_if_running iproxy
-		"$bin"/iproxy 2222 22 &
+		"$bin"/iproxy 2222 22 &>/dev/null &
 		sleep 1
 		ssh -o StrictHostKeyChecking=no -p2222 root@localhost
 		exit 0
@@ -1936,7 +1936,7 @@ if [[ "$boot" == 1 ]]; then
 		read -p "[*] Press Enter once your device has fully booted into the SSH ramdisk " r1
 		echo "[*] Waiting 6 seconds before continuing.."
 		sleep 6
-		"$bin"/iproxy 2222 22 &
+		"$bin"/iproxy 2222 22 &>/dev/null &
 		sleep 1
 		"$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost '/sbin/fsck'
 		echo "[*] Done"
@@ -2215,7 +2215,7 @@ if [[ "$ramdisk" == 1 || "$restore" == 1 || "$dump_blobs" == 1 || "$force_activa
 	read -p "[*] Press Enter once your device has fully booted into the SSH ramdisk " r1
 	echo "[*] Waiting 6 seconds before continuing.."
 	sleep 6
-	"$bin"/iproxy 2222 22 &
+	"$bin"/iproxy 2222 22 &>/dev/null &
 	sleep 1
 	sleep 2
 	if [[ "$restore" == 1 ]]; then
@@ -2421,7 +2421,7 @@ if [[ "$ramdisk" == 1 || "$restore" == 1 || "$dump_blobs" == 1 || "$force_activa
 				read -p "[*] Press Enter once your device has fully booted into the SSH ramdisk " r1
 				echo "[*] Waiting 6 seconds before continuing.."
 				sleep 6
-				"$bin"/iproxy 2222 22 &
+				"$bin"/iproxy 2222 22 &>/dev/null &
 				sleep 1
 			fi
 			"$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost "bash -c fixup_update_partition" 2>/dev/null
@@ -2691,7 +2691,7 @@ if [[ "$ramdisk" == 1 || "$restore" == 1 || "$dump_blobs" == 1 || "$force_activa
 					read -p "[*] Press Enter once your device has fully booted into the SSH ramdisk. " r1
 					echo "[*] Waiting 6 seconds before continuing.."
 					sleep 6
-					"$bin"/iproxy 2222 22 &
+					"$bin"/iproxy 2222 22 &>/dev/null &
 					sleep 1
 				fi
 			fi
@@ -2768,7 +2768,7 @@ if [[ "$ramdisk" == 1 || "$restore" == 1 || "$dump_blobs" == 1 || "$force_activa
 					read -p "[*] Press Enter once your device has fully booted into the SSH ramdisk. " r1
 					echo "[*] Waiting 6 seconds before continuing.."
 					sleep 6
-					"$bin"/iproxy 2222 22 &
+					"$bin"/iproxy 2222 22 &>/dev/null &
 					sleep 1
 				}
 			else
@@ -2837,7 +2837,7 @@ if [[ "$ramdisk" == 1 || "$restore" == 1 || "$dump_blobs" == 1 || "$force_activa
 				read -p "[*] Press Enter once your device has fully booted into the SSH ramdisk. " r1
 				echo "[*] Waiting 6 seconds before continuing.."
 				sleep 6
-				"$bin"/iproxy 2222 22 &
+				"$bin"/iproxy 2222 22 &>/dev/null &
 				sleep 1
 			fi
 		fi
@@ -2908,7 +2908,7 @@ if [[ "$ramdisk" == 1 || "$restore" == 1 || "$dump_blobs" == 1 || "$force_activa
 			read -p "[*] Press Enter once your device has fully booted into the SSH ramdisk. " r1
 			echo "[*] Waiting 6 seconds before continuing.."
 			sleep 6
-			"$bin"/iproxy 2222 22 &
+			"$bin"/iproxy 2222 22 &>/dev/null &
 			sleep 1
 			echo "[*] Restoring root filesystem, this will take a long while..."
 			if [ "$os" = "Darwin" ]; then
@@ -3431,7 +3431,7 @@ if [[ "$ramdisk" == 1 || "$restore" == 1 || "$dump_blobs" == 1 || "$force_activa
 					read -p "[*] Press Enter once your device has fully booted into the SSH ramdisk. " r1
 					echo "[*] Waiting 6 seconds before continuing.."
 					sleep 6
-					"$bin"/iproxy 2222 22 &
+					"$bin"/iproxy 2222 22 &>/dev/null &
 					sleep 1
 					"$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost '/sbin/fsck'
 					"$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost "/sbin/mount_hfs /dev/disk0s1s1 /mnt1" 2>/dev/null
@@ -3844,7 +3844,7 @@ if [[ "$ramdisk" == 1 || "$restore" == 1 || "$dump_blobs" == 1 || "$force_activa
 				read -p "[*] Press Enter once your device has fully booted into the SSH ramdisk " r1
 				echo "[*] Waiting 6 seconds before continuing.."
 				sleep 6
-				"$bin"/iproxy 2222 22 &
+				"$bin"/iproxy 2222 22 &>/dev/null &
 				sleep 1
 				"$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost "/sbin/mount -w -t hfs /dev/disk0s1s1 /mnt1" 2>/dev/null
 				echo "[*] Disabling fixkeybag and putting back stock /usr/libexec/keybagd.."
@@ -3963,7 +3963,7 @@ if [[ "$ramdisk" == 1 || "$restore" == 1 || "$dump_blobs" == 1 || "$force_activa
 					read -p "[*] Press Enter once your device has fully booted into the SSH ramdisk " r1
 					echo "[*] Waiting 6 seconds before continuing.."
 					sleep 6
-					"$bin"/iproxy 2222 22 &
+					"$bin"/iproxy 2222 22 &>/dev/null &
 					sleep 1
 					"$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost '/sbin/fsck'
 					echo "[*] Done"
@@ -4096,7 +4096,7 @@ if [[ "$ramdisk" == 1 || "$restore" == 1 || "$dump_blobs" == 1 || "$force_activa
 				read -p "[*] Press Enter once your device has fully booted into the SSH ramdisk " r1
 				echo "[*] Waiting 6 seconds before continuing.."
 				sleep 6
-				"$bin"/iproxy 2222 22 &
+				"$bin"/iproxy 2222 22 &>/dev/null &
 				sleep 1
 				if [[ "$version" == "9.3"* || "$version" == "10.0"* || "$version" == "10.1"* || "$version" == "10.2"* ]]; then
 					if [[ "$dualboot_hfs" == 1 ]]; then
